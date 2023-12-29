@@ -1,12 +1,12 @@
 import express from 'express';
 const Route = express.Router();
+import * as UserController from '../controllers/registerUser.js';
 
 
 
 
-Route.get("/", (req, res)=>{
-    res.send("req received inside route");
-});
+Route.post("/register", UserController.registerUser);
+Route.post("/login", UserController.loginUser);
 
 
 
