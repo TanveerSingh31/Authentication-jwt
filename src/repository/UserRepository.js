@@ -31,7 +31,7 @@ export const loginUser = async({email}) => {
     try{
         return await User.findOne({ 
             where : {email},
-            attributes : ['password'],
+            attributes : ['password', 'id'],
             raw: true
         });
     }

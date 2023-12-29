@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import * as UserService from '../services/UserService.js';
 import responseHandler from '../../util/responseHandler.js';
 
@@ -9,8 +10,6 @@ export const registerUser = async (req, res) => {
     try{
         let { fName, lName, email, password } = req.body;
         const hashedPass = await bcrypt.hash(password, 5);
-
-        console.log(hashedPass);
 
         let emailTaken = await UserService.getUserWithEmail(email);
         if(emailTaken) return res.status(400).send("please chose another email , this email is already taken");
@@ -28,11 +27,12 @@ export const loginUser = async (req, res) => {
     try{
         let { email, password } = req.body;
         
-        let { password: hash } = await UserService.getHashedPass({email});
-
+        let { password: hash, id: userId } = await UserService.getHashedPass({email});
         let result = await bcrypt.compare(password, hash);
 
-        if(result) responseHandler(res, "false", 200, result, "successfully logged in");
+        let token = await jwt.sign({ 'userId': userId }, 'xyzyxyzyx', { algorithm: 'HS256' } );
+
+        if(result) responseHandler(res, "false", 200, token, "successfully logged in");
         else responseHandler(res, "true", 403, result,  "incorrect email/pass");
     }
     catch(err){
