@@ -1,0 +1,17 @@
+body {
+    background-color: bisque;
+}
+
+
+Form { 
+    position: absolute;
+    left: 200px;
+    background-color: aliceblue;
+    height: 20px;
+    width: 10px;
+}
+
+
+Form, input {
+    display: block;
+}
