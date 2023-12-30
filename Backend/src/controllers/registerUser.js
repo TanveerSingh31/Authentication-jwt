@@ -9,6 +9,7 @@ import responseHandler from '../../util/responseHandler.js';
 export const registerUser = async (req, res) => {
     try{
         let { fName, lName, email, password } = req.body;
+        console.log(req.body);
         const hashedPass = await bcrypt.hash(password, 5);
 
         let emailTaken = await UserService.getUserWithEmail(email);
@@ -19,24 +20,27 @@ export const registerUser = async (req, res) => {
     }
     catch(err){
         console.log(err);
-        res.send("error encountered !");
+        res.status(400).send("error encountered !");
     }
 }
 
 export const loginUser = async (req, res) => {
     try{
         let { email, password } = req.body;
+        console.log(req.body);
         
-        let { password: hash, id: userId } = await UserService.getHashedPass({email});
-        let result = await bcrypt.compare(password, hash);
+        let { password: hash, id: userId } =   await UserService.getHashedPass({email}) || {};
+        
+        let result = (hash && userId) && await bcrypt.compare(password, hash);
 
-        let token = await jwt.sign({ 'userId': userId }, 'xyzyxyzyx', { algorithm: 'HS256' } );
-
-        if(result) responseHandler(res, "false", 200, token, "successfully logged in");
+        if(result){
+            let token = await jwt.sign({ 'userId': userId }, 'xyzyxyzyx', { algorithm: 'HS256' });
+            responseHandler(res, "false", 200, token, "successfully logged in");
+        } 
         else responseHandler(res, "true", 403, result,  "incorrect email/pass");
     }
     catch(err){
         console.log(err);
-        res.send("error encountered !");
+        res.status(400).send("error encountered !");
     }
 }
