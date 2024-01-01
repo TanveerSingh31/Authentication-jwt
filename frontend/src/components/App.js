@@ -33,7 +33,7 @@ function App() {
     }
     catch(err){
       console.log(err);
-      alert(err.response.data.message);
+      // alert(err.response.data.message);
       return err;
     }
   }
@@ -47,7 +47,7 @@ function App() {
   <Routes>
     <Route path="/" element={ <RegisterForm register={registerUser}/>}/>
     <Route path="/login" element={ <LoginForm login={loginUser}/> }/>
-    <Route path="/home" element={ <HomePage />}/>
+    <Route path="/home" element={ <HomePage sample={(err)=>{console.log(err)}}/>}/>
   </Routes>
   );
 }

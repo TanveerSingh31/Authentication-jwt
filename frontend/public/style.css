@@ -22,3 +22,8 @@ input {
 button {
     margin-left: 50px;
 }
+
+
+.logout {
+    float: right;
+}
