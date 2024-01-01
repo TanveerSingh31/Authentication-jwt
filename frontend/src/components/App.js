@@ -26,12 +26,13 @@ function App() {
       let result = await axios.post("http://localhost:5000/login",
         userInfo
       );
+      
       let token = result.data.data;
       window.localStorage.setItem("token", token);
-      alert(result.data.message); 
       if(window.localStorage.getItem("token")) navigate("/home");
     }
     catch(err){
+      if(err.response.data.error) alert(err.response.data.message);
       console.log(err);
       // alert(err.response.data.message);
       return err;

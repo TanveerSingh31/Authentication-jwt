@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterForm = (props) => {
+    const navigate = useNavigate();
 
     let [userInfo, setInfo] = useState({
         fName: "",
@@ -36,6 +38,7 @@ const RegisterForm = (props) => {
             <input placeholder="email" type="email" name='email' onChange={userInfoChange}></input>
             <input placeholder="password" type="password" name='password' onChange={userInfoChange}></input>
             <button type="submit" onClick={register}>Register</button>
+            <p>Already a member ? <a href="/login">sign-in</a></p>
         </div>
     );
 }

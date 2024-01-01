@@ -21,12 +21,11 @@ function HomePage(props) {
     */
 
     useEffect(()=>{
-        console.log("=======================================");
         if(!token){ navigate("/login") }
-    },[location.pathname]);
+    });
 
     console.log("*********************************");
-    
+
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
