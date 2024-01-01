@@ -30,7 +30,7 @@ const LoginForm = (props) =>{
         <div className="Form">
             <input placeholder="email" type="email" name='email' onChange={setInfo}></input>
             <input placeholder="password" type="password" name='password' onChange={setInfo}></input>
-            <button type="submit" onClick={signIn}>Register</button>
+            <button type="submit" onClick={signIn}>Login</button>
         </div>
     );
 

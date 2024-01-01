@@ -1,10 +1,11 @@
 import RegisterForm from './Register.js';
 import LoginForm from './Login.js';
-import { Route, Routes } from "react-router-dom";
+import HomePage from '../Pages/HomePage.jsx'
+import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 function App() {
-
+  const navigate = useNavigate();
 
   const registerUser = async (userInfo) => {
     try{
@@ -25,7 +26,10 @@ function App() {
       let result = await axios.post("http://localhost:5000/login",
         userInfo
       );
-      alert(result.data.message);
+      let token = result.data.data;
+      window.localStorage.setItem("token", token);
+      alert(result.data.message); 
+      if(window.localStorage.getItem("token")) navigate("/home");
     }
     catch(err){
       console.log(err);
@@ -43,6 +47,7 @@ function App() {
   <Routes>
     <Route path="/" element={ <RegisterForm register={registerUser}/>}/>
     <Route path="/login" element={ <LoginForm login={loginUser}/> }/>
+    <Route path="/home" element={ <HomePage />}/>
   </Routes>
   );
 }

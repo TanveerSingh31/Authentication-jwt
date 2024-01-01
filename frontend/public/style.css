@@ -3,15 +3,22 @@ body {
 }
 
 
-Form { 
+.Form { 
     position: absolute;
-    left: 200px;
-    background-color: aliceblue;
-    height: 20px;
-    width: 10px;
+    left: 40vw;
+    top: 40vh;
+    background-color: rgb(67, 140, 204);
+    align-content: center;
+    padding: 20px;
 }
 
 
-Form, input {
+input {
     display: block;
+    height: 30px;
+    margin: 10px 0px 10px;
+}
+
+button {
+    margin-left: 50px;
 }
