@@ -29,12 +29,12 @@ export const loginUser = async (req, res) => {
         let { email, password } = req.body;
         console.log(req.body);
         
-        let { password: hash, id: userId } =   await UserService.getHashedPass({email}) || {};
+        let { password: hash, id: userId, firstName: fName, lastName: lName } =   await UserService.getHashedPass({email}) || {};
         
         let result = (hash && userId) && await bcrypt.compare(password, hash);
 
         if(result){
-            let token = await jwt.sign({ 'userId': userId }, 'xyzyxyzyx', { algorithm: 'HS256' });
+            let token = await jwt.sign({ 'userId': userId, 'fName': fName, 'lName': lName }, 'xyzyxyzyx', { algorithm: 'HS256' });
             responseHandler(res, "false", 200, token, "successfully logged in");
         } 
         else responseHandler(res, "true", 403, result,  "incorrect email/pass");
