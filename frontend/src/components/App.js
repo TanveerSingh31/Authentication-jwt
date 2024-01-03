@@ -1,5 +1,5 @@
-import RegisterForm from './Register.js';
-import LoginForm from './Login.js';
+import RegisterForm from '../Pages/RegisterPage.jsx';
+import LoginForm from '../Pages/LoginPage.jsx';
 import HomePage from '../Pages/HomePage.jsx'
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from 'axios';
