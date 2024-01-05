@@ -95,8 +95,8 @@ function HomePage() {
             <div>
                 <Header />
                 <CreateArea addTask={addTask} />
-                { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>})} 
-                
+                { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt} calledFromDeletedPage={false}/>})} 
+    
                 <Footer />
             </div>
         );

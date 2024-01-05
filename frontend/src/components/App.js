@@ -1,6 +1,7 @@
 import RegisterForm from '../Pages/RegisterPage.jsx';
 import LoginForm from '../Pages/LoginPage.jsx';
 import HomePage from '../Pages/HomePage.jsx'
+import DeletedTasks from '../Pages/DeletedTasks.jsx';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -48,7 +49,8 @@ function App() {
   <Routes>
     <Route path="/" element={ <RegisterForm register={registerUser}/>}/>
     <Route path="/login" element={ <LoginForm login={loginUser}/> }/>
-    <Route path="/home" element={ <HomePage sample={(err)=>{console.log(err)}}/>}/>
+    <Route path="/home" element={ <HomePage />}/>
+    <Route path="/trash" element={ <DeletedTasks />}/>
   </Routes>
   );
 }

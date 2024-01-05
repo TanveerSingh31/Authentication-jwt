@@ -18,7 +18,7 @@ function Note(props) {
   useEffect(()=>{
     let {taskId} = currentTaskData;
     async function markStatus (){ await props.markTaskStatus(taskId, taskStatus) }
-    markStatus();
+    !props.calledFromDeletedPage && markStatus();
   },[taskStatus]);
 
   
@@ -55,9 +55,10 @@ function Note(props) {
     <form>
       <div className={`note ${taskStatus && "completed"}`} >
       <input name="title" contentEditable={ editState && "true"} onChange={changeText} value={currentTaskData.title} disabled={!editState} ></input>
-      <input className="checkbox" type="checkbox" defaultChecked={taskStatus} onClick={taskCompleted} value={taskStatus}></input>
+      {!props.calledFromDeletedPage && <input className="checkbox" type="checkbox" defaultChecked={taskStatus} onClick={taskCompleted} value={taskStatus}></input>}
       <input className="body" name="body" contentEditable = {editState && "true"} onChange={changeText} value={currentTaskData.body} disabled={!editState}></input>
 
+      {!props.calledFromDeletedPage && <>
       <button onClick={(e)=>{ props.deleteTask(props.taskId); e.preventDefault() }}><DeleteIcon sx={iconButtonStyle}/></button>
       <button onClick={(e)=>{
         setEditState(true);
@@ -65,6 +66,8 @@ function Note(props) {
       }}> Edit </button>
 
       { editState && <button onClick={updateTask}> Save </button> }
+      </>}
+      
       <p>{date.toLocaleDateString()}</p>
     </div>
     </form>

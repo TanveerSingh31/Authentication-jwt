@@ -180,3 +180,8 @@ h1 {
     font-size: 13pt;
     font-weight: bold;
   }
+
+
+  .nav {
+    margin: 0px 10px 0px;
+  }
