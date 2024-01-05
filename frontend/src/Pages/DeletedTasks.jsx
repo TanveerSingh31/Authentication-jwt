@@ -26,7 +26,7 @@ export default function DeletedTasks() {
     return (
         <div>
             <Header />
-            { taskArr.map( el =>  <Note key={el.taskId} title={el.title} content={el.body} calledFromDeletedPage={true} createdAt={el.createdAt} />) }
+            { taskArr.map( el =>  <Note key={el.taskId} title={el.title} content={el.body} calledFromDeletedPage={true} createdAt={el.createdAt} taskStatus='deleted'/>) }
             <Footer />
         </div>
     );

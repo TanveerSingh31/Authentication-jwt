@@ -36,8 +36,12 @@ button {
     font-size: 13pt;
 }
 
-h1 {
+h1, .navigation {
     display: inline;
+}
+
+.navigation {
+  margin: 2em;
 }
 
 /* keeper app css */
@@ -152,6 +156,10 @@ h1 {
   
   .completed {
     background-color: green;
+  }
+
+  .deleted {
+    background-color: rgb(188, 76, 76);
   }
   
   .checkbox {

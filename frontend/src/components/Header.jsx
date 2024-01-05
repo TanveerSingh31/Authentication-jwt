@@ -18,8 +18,10 @@ function Header() {
   return (
     <header>
       <h1>Keeper</h1>
+      <div className="navigation">
       <a className="nav" href="/home">Home</a>
-      <a className="nav" href="/trash">Deleted Tasks</a>
+      <a className="nav" href="/trash">Deleted</a>
+      </div>
       <button className='logout' onClick={logout}> <LogoutIcon /></button> 
       <span className="userName">{token && userName}</span>
     </header>

@@ -53,7 +53,7 @@ function Note(props) {
 
   return (
     <form>
-      <div className={`note ${taskStatus && "completed"}`} >
+      <div className={`note ${taskStatus == 1 && "completed"} ${taskStatus == 'deleted' && "deleted"}`} >
       <input name="title" contentEditable={ editState && "true"} onChange={changeText} value={currentTaskData.title} disabled={!editState} ></input>
       {!props.calledFromDeletedPage && <input className="checkbox" type="checkbox" defaultChecked={taskStatus} onClick={taskCompleted} value={taskStatus}></input>}
       <input className="body" name="body" contentEditable = {editState && "true"} onChange={changeText} value={currentTaskData.body} disabled={!editState}></input>
