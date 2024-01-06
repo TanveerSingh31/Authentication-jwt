@@ -8,6 +8,7 @@ import Footer from "../components/Footer.jsx";
 import Note from "../components/Note.jsx";
 import CreateArea from "../components/CreateArea.jsx";
 import Config from '../config.json'
+import fetchTokenData from '../utils/fetchTokenData.js';
 
 
 function HomePage() {
@@ -16,10 +17,7 @@ function HomePage() {
     const [taskArr , setArr] = useState([]);  
     const [taskArr2 , setArr2] = useState([]); 
 
-    let token = window.localStorage.getItem("token");
-
-    let tokenArr = token.split('.');
-    let tokenData = JSON.parse(atob(tokenArr[1]));
+    let tokenData = fetchTokenData();
 
     // useEffect function is called after rendering logic i.e code beneath it gets executed
     // https://chat.openai.com/c/cd0322c1-5088-4a2a-8f92-e312030f69ce
@@ -32,13 +30,13 @@ function HomePage() {
     
     useEffect(()=>{
         console.log("cAlled==========!!!!===================")
+        if(!tokenData){ navigate("/login"); return; }
+
         async function getData(){
             let result = await axios.get(Config.BASE_URL, { params: { userId: tokenData.userId }});
             setArr2(result.data);   
         }
         getData();
-
-        if(!token){ navigate("/login") }
 
     }, [taskArr]);
 
@@ -86,17 +84,15 @@ function HomePage() {
     }
     
     try{    
-        if(!token) return;
-
-        let tokenArr = token.split('.');
-        let data = JSON.parse(atob(tokenArr[1]));
+        
+        if(!tokenData) return;
 
         return (
             <div>
                 <Header />
                 <CreateArea addTask={addTask} />
-                { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt} calledFromDeletedPage={false}/>})} 
-    
+                { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>})} 
+                
                 <Footer />
             </div>
         );
