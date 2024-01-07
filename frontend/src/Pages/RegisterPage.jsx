@@ -38,7 +38,7 @@ const RegisterForm = (props) => {
             <input placeholder="email" type="email" name='email' onChange={userInfoChange}></input>
             <input placeholder="password" type="password" name='password' onChange={userInfoChange}></input>
             <button type="submit" onClick={register}>Register</button>
-            <p className='signIn'>Already a member ? <a href="/login">sign-in</a></p>
+            <p className='signIn'>Already a member ? <a onClick={() => {navigate("/login")}} href='#'>sign-in</a></p>
         </div>
     );
 }

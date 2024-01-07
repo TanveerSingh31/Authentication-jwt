@@ -16,7 +16,7 @@ app.use("/",Route);
 app.listen(process.env.PORT, async ()=>{
     try{
         await db.authenticate();
-        // await db.sync({alter: true});    
+        await db.sync({alter: true});    
         console.log("server started on port 5000")  
     }
     catch(err){

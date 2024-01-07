@@ -1,5 +1,5 @@
 {
-    "BASE_URL": "http://localhost:5002/",
+    "BASE_URL": "https://keeperapp-be2.onrender.com/",
     "ENV": "development"
     
 }

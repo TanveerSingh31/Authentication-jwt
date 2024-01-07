@@ -10,7 +10,7 @@ function App() {
 
   const registerUser = async (userInfo) => {
     try{
-      let result = await axios.post("http://localhost:5000/register", 
+      let result = await axios.post("https://keeperapp-be.onrender.com/register", 
         userInfo
       );
       alert(result.data.message);
@@ -24,7 +24,7 @@ function App() {
 
   const loginUser = async (userInfo) => {
     try{
-      let result = await axios.post("http://localhost:5000/login",
+      let result = await axios.post("https://keeperapp-be.onrender.com/login",
         userInfo
       );
       
