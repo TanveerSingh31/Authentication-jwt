@@ -9,6 +9,7 @@ import Note from "../components/Note.jsx";
 import CreateArea from "../components/CreateArea.jsx";
 import Config from '../config.json'
 import fetchTokenData from '../utils/fetchTokenData.js';
+import LoadingScreen from '../components/Loading.jsx';
 
 
 function HomePage() {
@@ -16,6 +17,7 @@ function HomePage() {
 
     const [taskArr , setArr] = useState([]);  
     const [taskArr2 , setArr2] = useState([]); 
+    const [isLoading, setLoading] = useState(true); // isLoading is saved true initially, because if I put this is in useEffect then it will run after my code has been executed , which will display my components first and then displays loading screen
 
     let tokenData = fetchTokenData();
 
@@ -35,6 +37,7 @@ function HomePage() {
         async function getData(){
             let result = await axios.get(Config.BASE_URL, { params: { userId: tokenData.userId }});
             setArr2(result.data);   
+            setLoading(false);
         }
         getData();
 
@@ -89,11 +92,13 @@ function HomePage() {
 
         return (
             <div>
-                <Header />
-                <CreateArea addTask={addTask} />
-                { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>})} 
-                
-                <Footer />
+                {isLoading && <LoadingScreen />}
+                {!isLoading && <>
+                    <Header />
+                    <CreateArea addTask={addTask} />
+                    { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>})} 
+                    <Footer />
+                </>}
             </div>
         );
     }
