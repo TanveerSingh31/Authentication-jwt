@@ -27,7 +27,7 @@ button {
 
 .logout {
     float: right;
-    margin-top: 0px;
+    margin: 5px 20px; 
 }
 
 .signIn {
@@ -183,7 +183,7 @@ h1, .navigation {
     right: 0px
   }
 
-  .userName { 
+  .profileIcon { 
     float: right;
     font-size: 13pt;
     font-weight: bold;

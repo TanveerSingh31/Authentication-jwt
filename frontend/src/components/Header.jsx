@@ -3,6 +3,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import atob from 'atob';
 
+import MyProfile from './MyProfile.jsx';
+
 function Header() {
   let navigate = useNavigate();
   let token = localStorage.getItem('token');
@@ -23,7 +25,7 @@ function Header() {
       <a className="nav" href="#" onClick={() => {navigate("/trash")}}>Deleted</a>
       </div>
       <button className='logout' onClick={logout}> <LogoutIcon /></button> 
-      <span className="userName">{token && userName}</span>
+      <MyProfile />
     </header>
   );
 }
