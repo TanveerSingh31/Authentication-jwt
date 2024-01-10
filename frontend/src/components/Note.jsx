@@ -56,7 +56,7 @@ function Note(props) {
       <div className={`note ${taskStatus == 1 && "completed"} ${taskStatus == 'deleted' && "deleted"}`} >
       <input name="title" contentEditable={ editState && "true"} onChange={changeText} value={currentTaskData.title} disabled={!editState} ></input>
       {!props.calledFromDeletedPage && <input className="checkbox" type="checkbox" defaultChecked={taskStatus} onClick={taskCompleted} value={taskStatus}></input>}
-      <input className="body" name="body" contentEditable = {editState && "true"} onChange={changeText} value={currentTaskData.body} disabled={!editState}></input>
+      <textarea className="body" name="body" rows={5} contentEditable = {editState && "true"} onChange={changeText} value={currentTaskData.body} disabled={!editState}></textarea>
 
       {!props.calledFromDeletedPage && <>
       <button onClick={(e)=>{ props.deleteTask(props.taskId); e.preventDefault() }}><DeleteIcon sx={iconButtonStyle}/></button>
