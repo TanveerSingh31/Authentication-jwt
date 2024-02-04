@@ -7,6 +7,7 @@ import * as UserController from '../controllers/registerUser.js';
 
 Route.post("/register", UserController.registerUser);
 Route.post("/login", UserController.loginUser);
+Route.get("/userProfile", UserController.getUserProfileByUserId)
 
 
 

@@ -17,7 +17,7 @@ app.listen(process.env.PORT, async ()=>{
     try{
         await db.authenticate();
         await db.sync({alter: true});    
-        console.log("server started on port 5000")  
+        console.log("http://localhost:" + process.env.PORT);  
     }
     catch(err){
         console.log(err);

@@ -28,14 +28,18 @@ export const getUserWithEmail = async (email) => {
 
 
 export const loginUser = async({email}) => {
-    try{
-        return await User.findOne({ 
-            where : {email},
-            attributes : ['password', 'id', 'firstName', 'lastName'],
-            raw: true
-        });
-    }
-    catch(err){
-        return err;
-    }
+
+    return User.findOne({ 
+        where : {email},
+        attributes : ['password', 'id', 'firstName', 'lastName'],
+        raw: true
+    });
+}
+
+export const getUserProfileByUserId = async (userId) => {
+    return User.findOne({
+        where: { id: userId },
+        attributes: {exclude: ['password']},
+        raw: true
+    });
 }

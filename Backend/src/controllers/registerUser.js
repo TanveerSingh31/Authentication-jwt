@@ -41,6 +41,19 @@ export const loginUser = async (req, res) => {
     }
     catch(err){
         console.log(err);
-        res.status(400).send("error encountered !");
+        res.status(400).send("error encountered !", err.message);
+    }
+}
+
+
+export const getUserProfileByUserId = async(req, res, next) => {
+    try{
+        let { userId } = req.query;
+        let result = await UserService.getUserProfileByUserId(userId);
+        return res.status(200).send(result);
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).send(err.message);
     }
 }

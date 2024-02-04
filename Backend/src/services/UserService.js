@@ -32,3 +32,8 @@ export const getHashedPass = async ({email}) => {
         return err;
     }
 }
+
+
+export const getUserProfileByUserId = async (userId) => {
+    return UserRepository.getUserProfileByUserId(userId);
+}
