@@ -6,6 +6,9 @@ import Avatar from '@mui/material/Avatar';
 
 import SampleResponse from '../utils/SampleResponse.js';
 import getInitials from '../utils/getInitials.js';
+import Config from '../config.json';
+import axios from 'axios';
+import moment from 'moment';
 
 
 
@@ -28,12 +31,25 @@ export default function MyProfile(props){
 
     useEffect(()=>{
         const getUserProfile = async () => {
-            // await xyz;
-            let result = SampleResponse;
-            setUserData(result);
+            let result = await axios.get(`${Config.BASE_URL2}userProfile`, {
+                params: {
+                    userId: tokenData.userId
+                }
+            });
+            console.log("===>",result);
+            let { firstName: fName, lastName: lName, email, createdAt } = result?.data;
+            setUserData({
+                name: `${fName} ${lName}`, 
+                email: email,
+                createdAt: createdAt
+            });
         }
         getUserProfile();
     }, []);
+
+
+
+
 
     function handleClose(){
         setAnchorEl(null);
@@ -62,7 +78,7 @@ export default function MyProfile(props){
                     <div>
                         <h3>{userData.name}</h3>
                         <h3>{userData.email}</h3>
-                        <h3>joined on: {userData.createdAt}</h3>
+                        <h3>joined on: {moment(userData.createdAt).format('Do MMMM, YYYY')}</h3>
                         <h3>Tasks Created till now: {userData.tasksCreated}</h3>
                     </div>
                 </Typography>

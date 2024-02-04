@@ -1,7 +1,11 @@
 {
     "BASE_URL": "https://keeperapp-be2.onrender.com/",
-    "ENV": "development"
-    
+    "ENV": "development",
+    "BASE_URL2": "https://keeperapp-be.onrender.com/",
+
+
+    "PROD_URL": "https://keeperapp-be2.onrender.com/",
+    "PROD_URL2": "https://keeperapp-be.onrender.com/"
 }
 
 

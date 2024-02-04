@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import atob from 'atob';
 import axios from 'axios';
+import moment from 'moment';
 
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -85,21 +86,55 @@ function HomePage() {
             taskStatus
         });
     }
+
+    function getTasks(taskArr2, date){
+
+        let arrOutput = [];
+
+        taskArr2.forEach((el) => { 
+
+            let taskDate = moment(el.createdAt);
+            let today = moment();
+
+            if(date == 'today' && taskDate.isSame(today, 'day')){
+                arrOutput.push(<Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>)
+            }
+            else if(date == 'before' && taskDate.isBefore(today, 'day')){
+                arrOutput.push(<Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>)
+            }
+        });
+
+        return arrOutput;
+
+        // <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>
+    }
     
     try{    
         
         if(!tokenData) return;
 
         return (
-            <div>
+            <>
                 {isLoading && <LoadingScreen />}
                 {!isLoading && <>
                     <Header />
                     <CreateArea addTask={addTask} />
-                    { taskArr2.map( (el, i) => { return <Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>})} 
+                    
+                    {/* get todays tasks  */}
+                    { getTasks(taskArr2, 'today').length && <p className='text-center'>---------- Today ----------</p>}
+                    <div class="task-container">
+                        { getTasks(taskArr2, 'today') }
+                    </div>
+
+                    {/* get before tasks */}
+                    { getTasks(taskArr2, 'before').length && <p className='text-center'>---------- Before ----------</p>}
+                    <div class="task-container">
+                        { getTasks(taskArr2, 'before') }
+                    </div>
+                    
                     <Footer />
                 </>}
-            </div>
+            </>
         );
     }
     catch(err){

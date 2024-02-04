@@ -18,7 +18,7 @@ function Note(props) {
   useEffect(()=>{
     let {taskId} = currentTaskData;
     async function markStatus (){ await props.markTaskStatus(taskId, taskStatus) }
-    !props.calledFromDeletedPage && markStatus();
+    // !props.calledFromDeletedPage && markStatus();
   },[taskStatus]);
 
   
@@ -39,7 +39,15 @@ function Note(props) {
     setEditState(false);
   }
 
+  async function markStatus (){
+    
+    let {taskId} = currentTaskData;
+    await props.markTaskStatus(taskId, !taskStatus);
+    setStatus(!taskStatus);
+  }
+
   async function taskCompleted(e){
+    await markStatus();
     setStatus(!taskStatus);  
   }
 

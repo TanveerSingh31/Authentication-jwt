@@ -2,6 +2,7 @@ import RegisterForm from '../Pages/RegisterPage.jsx';
 import LoginForm from '../Pages/LoginPage.jsx';
 import HomePage from '../Pages/HomePage.jsx'
 import DeletedTasks from '../Pages/DeletedTasks.jsx';
+import Config from '../config.json';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -10,7 +11,7 @@ function App() {
 
   const registerUser = async (userInfo) => {
     try{
-      let result = await axios.post("https://keeperapp-be.onrender.com/register", 
+      let result = await axios.post(`${Config.BASE_URL2}register`, 
         userInfo
       );
       alert(result.data.message);
@@ -24,17 +25,18 @@ function App() {
 
   const loginUser = async (userInfo) => {
     try{
-      let result = await axios.post("https://keeperapp-be.onrender.com/login",
+      let result = await axios.post(`${Config.BASE_URL2}login`,
         userInfo
       );
-      
+      console.log("result", result);
       let token = result.data.data;
       window.localStorage.setItem("token", token);
       if(window.localStorage.getItem("token")) navigate("/home");
     }
     catch(err){
-      if(err.response.data.error) alert(err.response.data.message);
+      // if(err.response.data.error) alert(err.response.data.message);
       console.log(err);
+      console.log(`${Config.BASE_URL2}login`);
       // alert(err.response.data.message);
       return err;
     }
