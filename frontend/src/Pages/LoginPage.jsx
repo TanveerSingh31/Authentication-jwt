@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LoadingPage from '../components/Loading.jsx';
+import Button from '@mui/material/Button';
 
 
 const LoginForm = (props) =>{
@@ -37,7 +38,7 @@ const LoginForm = (props) =>{
             {!isLoading && <div className="Form">
             <input placeholder="email" type="email" name='email' onChange={setInfo}></input>
             <input placeholder="password" type="password" name='password' onChange={setInfo}></input>
-            <button type="submit" onClick={signIn}>Login</button>
+            <Button type="submit" onClick={signIn} variant='contained'>Login</Button>
             </div>}
         </>
     );

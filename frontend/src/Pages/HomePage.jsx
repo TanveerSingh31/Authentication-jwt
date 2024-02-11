@@ -90,6 +90,7 @@ function HomePage() {
         let res = await axios.put(`${Config.BASE_URL}${taskId}`, {
             taskStatus
         });
+        setArr([]);
     }
 
     function taskClicked(task){

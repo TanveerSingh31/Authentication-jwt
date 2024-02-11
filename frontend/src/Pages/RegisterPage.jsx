@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 
 const RegisterForm = (props) => {
@@ -37,7 +38,7 @@ const RegisterForm = (props) => {
             <input placeholder="lastName" name='lName' onChange={userInfoChange}></input>
             <input placeholder="email" type="email" name='email' onChange={userInfoChange}></input>
             <input placeholder="password" type="password" name='password' onChange={userInfoChange}></input>
-            <button type="submit" onClick={register}>Register</button>
+            <Button type="submit" onClick={register} variant='contained'>Register</Button>
             <p className='signIn'>Already a member ? <a onClick={() => {navigate("/login")}} href='#'>sign-in</a></p>
         </div>
     );

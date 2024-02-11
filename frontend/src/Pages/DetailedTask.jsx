@@ -16,7 +16,7 @@ export default function DetailedTask(props){
     useEffect(()=>{
         let {taskId} = currentTaskData;
         async function markStatus (){ await props.markTaskStatus(taskId, taskStatus) }
-        // !props.calledFromDeletedPage && markStatus();
+        markStatus();
     },[taskStatus]);
 
     const theme = createTheme({
@@ -53,7 +53,6 @@ export default function DetailedTask(props){
     }
     
     async function taskCompleted(e){
-        await markStatus();
         setStatus(!taskStatus);  
     }
 
