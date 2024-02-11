@@ -12,16 +12,45 @@ body {
     padding: 30px;
 }
 
+/* for homepage tasks */
 
-input {
+.input, .textarea {
     display: block;
-    height: 30px;
-    width: 200px;
-    margin: 10px 0px 10px;
+    width: 100%;
+    margin: 10px 0px;
+    padding: 7px 10px;
+    word-wrap: break-word;
+    
+    background-color: #f6f5f5da;
 }
 
-button {
-    margin-left: 50px;
+.input {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+/* for detailed task */
+input, textarea {
+  display: block;
+  /* width: 90%; */
+  min-width: 100%;
+  margin: 10px 0px;
+  padding: 10px 10px;
+  word-wrap: break-word;
+  font-size: 13pt;
+  background-color: #f6f5f5da;
+}
+
+input {
+  color: black;
+  font-size: 15pt;
+  font-weight: bold;
+}
+
+
+
+.button-list button {
+    margin: 20px;
 }
 
 
@@ -168,13 +197,6 @@ h1, .navigation {
     width: 20px;
   }
   
-  
-  .body{
-    display: block;
-  }
-  
-  
-  
   p {
     font-size: 11px;
     color: rgb(0, 0, 0);
@@ -204,4 +226,25 @@ h1, .navigation {
 
   .text-center {
     text-align: center;
+  }
+
+
+  .detailTask-div {
+    width: 30em;
+    height: 70vh;
+    padding: 20px 20px;
+    overflow: hidden;
+    text-align:center;
+  }
+
+  .flex-right {
+    display: inline;
+    float: right;
+  }
+
+  .button-list {
+    display: flex; 
+    justify-content: center;
+    padding: 0 30px;
+    flex-wrap: wrap;
   }

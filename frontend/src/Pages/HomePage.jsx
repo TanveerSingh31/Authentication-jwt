@@ -11,6 +11,8 @@ import CreateArea from "../components/CreateArea.jsx";
 import Config from '../config.json'
 import fetchTokenData from '../utils/fetchTokenData.js';
 import LoadingScreen from '../components/Loading.jsx';
+import DetailedTask from './DetailedTask.jsx';
+import {Paper, Box, Dialog, DialogTitle, DialogContent} from '@mui/material';
 
 
 function HomePage() {
@@ -19,6 +21,8 @@ function HomePage() {
     const [taskArr , setArr] = useState([]);  
     const [taskArr2 , setArr2] = useState([]); 
     const [isLoading, setLoading] = useState(true); // isLoading is saved true initially, because if I put this is in useEffect then it will run after my code has been executed , which will display my components first and then displays loading screen
+    const [openDialog, setOpenDialog] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
 
     let tokenData = fetchTokenData();
 
@@ -78,6 +82,7 @@ function HomePage() {
         let res = await axios.put(Config.BASE_URL, {
             taskData
         });
+        setArr([]);
     }
 
     async function markTaskCompleted(taskId, taskStatus){
@@ -85,6 +90,16 @@ function HomePage() {
         let res = await axios.put(`${Config.BASE_URL}${taskId}`, {
             taskStatus
         });
+    }
+
+    function taskClicked(task){
+        console.log(task);
+        setSelectedTask(task);
+        setOpenDialog(true);
+    }
+
+    function handleCloseDialog(){
+        setOpenDialog(false);
     }
 
     function getTasks(taskArr2, date){
@@ -97,10 +112,10 @@ function HomePage() {
             let today = moment();
 
             if(date == 'today' && taskDate.isSame(today, 'day')){
-                arrOutput.push(<Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>)
+                arrOutput.push(<div onClick={() => {taskClicked(el)}}><Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} taskStatus={el.taskStatus} createdAt={el.createdAt}/></div>)
             }
             else if(date == 'before' && taskDate.isBefore(today, 'day')){
-                arrOutput.push(<Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/>)
+                arrOutput.push(<div onClick={() => {taskClicked(el)}}><Note key={el.taskId} title={el.title} content={el.body} taskId={el.taskId} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted} taskStatus={el.taskStatus} createdAt={el.createdAt}/></div>)
             }
         });
 
@@ -120,17 +135,24 @@ function HomePage() {
                     <Header />
                     <CreateArea addTask={addTask} />
                     
-                    {/* get todays tasks  */}
-                    { getTasks(taskArr2, 'today').length && <p className='text-center'>---------- Today ----------</p>}
+                    {/* get todays tasks */}
+                    { getTasks(taskArr2, 'today').length > 0 && <p className='text-center'>---------- Today ----------</p>}
                     <div class="task-container">
                         { getTasks(taskArr2, 'today') }
                     </div>
 
                     {/* get before tasks */}
-                    { getTasks(taskArr2, 'before').length && <p className='text-center'>---------- Before ----------</p>}
+                    { getTasks(taskArr2, 'before').length > 0 && <p className='text-center'>---------- Before ----------</p>}
                     <div class="task-container">
                         { getTasks(taskArr2, 'before') }
                     </div>
+
+                    {/* detailed view of task */}
+                    <Dialog open={openDialog} onClose={handleCloseDialog}>
+                      {selectedTask && <DetailedTask taskData={selectedTask} deleteTask={deleteTask} updateTask={updateTask} markTaskStatus={markTaskCompleted}/>}
+                    </Dialog>
+
+
                     
                     <Footer />
                 </>}
