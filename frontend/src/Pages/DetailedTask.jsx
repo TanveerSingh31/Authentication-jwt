@@ -83,7 +83,7 @@ export default function DetailedTask(props){
 
                         {!taskStatus && <Button onClick={taskCompleted} value={taskStatus} variant="contained" color="success">Done</Button>}
 
-                        {taskStatus && <Button onClick={taskCompleted} value={taskStatus} variant="contained">Not Done</Button>}
+                        {taskStatus && <Button onClick={taskCompleted} value={taskStatus} variant="contained" sx={{ fontSize: 12}}>Not Done</Button>}
 
                         {<Button onClick={updateTask} variant="contained"  disabled={!editState}> Save </Button>}
                     </>}

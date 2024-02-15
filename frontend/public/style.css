@@ -232,7 +232,7 @@ h1, .navigation {
   .detailTask-div {
     width: 30em;
     height: 70vh;
-    padding: 20px 20px;
+    padding: 20px 40px;
     overflow: hidden;
     text-align:center;
   }
@@ -245,6 +245,5 @@ h1, .navigation {
   .button-list {
     display: flex; 
     justify-content: center;
-    padding: 0 30px;
     flex-wrap: wrap;
   }

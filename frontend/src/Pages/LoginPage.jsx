@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import LoadingPage from '../components/Loading.jsx';
 import Button from '@mui/material/Button';
+import CustomAlert from '../components/CustomAlert.jsx';
 
 
 const LoginForm = (props) =>{
 
-    let [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [ message, setMessage ] = useState(null);
 
     let [ userInfo , setUserInfo ] = useState({
         email: "",
@@ -26,7 +28,8 @@ const LoginForm = (props) =>{
     const signIn = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        await props.login(userInfo);
+        let response = await props.login(userInfo);
+        if(response?.response?.data?.error) setMessage('');
         setIsLoading(false);
     }
 
@@ -35,11 +38,16 @@ const LoginForm = (props) =>{
     return (
         <>
             {isLoading && <LoadingPage />}
-            {!isLoading && <div className="Form">
-            <input placeholder="email" type="email" name='email' onChange={setInfo}></input>
-            <input placeholder="password" type="password" name='password' onChange={setInfo}></input>
-            <Button type="submit" onClick={signIn} variant='contained'>Login</Button>
-            </div>}
+            {!isLoading &&
+                <div>
+                    <CustomAlert alertMessage={message}/>
+                    <div className="Form">
+                        <input placeholder="email" type="email" name='email' onChange={setInfo}></input>
+                        <input placeholder="password" type="password" name='password' onChange={setInfo}></input>
+                        <Button type="submit" onClick={signIn} variant='contained'>Login</Button>
+                    </div>
+                </div>
+            }
         </>
     );
 
