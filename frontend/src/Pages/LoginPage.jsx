@@ -29,7 +29,7 @@ const LoginForm = (props) =>{
         e.preventDefault();
         setIsLoading(true);
         let response = await props.login(userInfo);
-        if(response?.response?.data?.error) setMessage('');
+        if(response?.response?.data?.error) setMessage({ error: true, alertMessage: response.response.data.message});
         setIsLoading(false);
     }
 

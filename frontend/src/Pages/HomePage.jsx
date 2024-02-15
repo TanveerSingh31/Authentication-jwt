@@ -13,6 +13,7 @@ import fetchTokenData from '../utils/fetchTokenData.js';
 import LoadingScreen from '../components/Loading.jsx';
 import DetailedTask from './DetailedTask.jsx';
 import {Paper, Box, Dialog, DialogTitle, DialogContent} from '@mui/material';
+import CustomAlert from '../components/CustomAlert.jsx';
 
 
 function HomePage() {
@@ -23,6 +24,7 @@ function HomePage() {
     const [isLoading, setLoading] = useState(true); // isLoading is saved true initially, because if I put this is in useEffect then it will run after my code has been executed , which will display my components first and then displays loading screen
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
+    const [message, setMessage] = useState(null);
 
     let tokenData = fetchTokenData();
 
@@ -59,10 +61,16 @@ function HomePage() {
             userId: tokenData.userId
         });
 
+        console.log("res add task", res);
+
+        if(res?.response?.data?.error) setMessage({error: true, alertMessage: res.response.data.message});
+
         setArr((prevValue)=>{
             return [...prevValue, task];
         });
-        alert("Task Added !");
+
+        if(res?.data) setMessage({error: false, alertMessage: "Task Added"});
+        
     }
 
 
@@ -134,7 +142,10 @@ function HomePage() {
                 {isLoading && <LoadingScreen />}
                 {!isLoading && <>
                     <Header />
+                    
                     <CreateArea addTask={addTask} />
+
+                    <CustomAlert alertMessage={message}/>
                     
                     {/* get todays tasks */}
                     { getTasks(taskArr2, 'today').length > 0 && <p className='text-center'>---------- Today ----------</p>}
