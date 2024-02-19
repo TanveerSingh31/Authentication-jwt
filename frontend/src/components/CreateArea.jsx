@@ -2,15 +2,16 @@ import React, {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useDispatch } from "react-redux";
+import { increment } from "../Redux/Slices/addTask.js";
+
 
 function CreateArea(props) {
 
-  const [ text, setText ] = useState({
-    title: "",
-    content: ""
-  });
-
+  const [ text, setText ] = useState({ title: "", content: ""});
   const [ writing, setWriting ] = useState(false);
+
+  const dispatch = useDispatch();
 
   function ChangeText(e){
     let {name, value} = e.target; 
@@ -27,6 +28,7 @@ function CreateArea(props) {
        {writing && <zoom in={writing}>
         <Fab onClick={(e)=>{
             props.addTask(text);
+            dispatch(increment());
             setText({title:"", content:""});
             e.preventDefault();
           }}><AddIcon />

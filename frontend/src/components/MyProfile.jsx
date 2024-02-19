@@ -9,6 +9,7 @@ import getInitials from '../utils/getInitials.js';
 import Config from '../config.json';
 import axios from 'axios';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 
 
@@ -47,7 +48,7 @@ export default function MyProfile(props){
         getUserProfile();
     }, []);
 
-
+    let value = useSelector((state) => state.value.count);
 
 
 
@@ -79,7 +80,7 @@ export default function MyProfile(props){
                         <h3>{userData.name}</h3>
                         <h3>{userData.email}</h3>
                         <h3>joined on: {moment(userData.createdAt).format('Do MMMM, YYYY')}</h3>
-                        <h3>Tasks Created till now: {userData.tasksCreated}</h3>
+                        <h3>Tasks Created till now: {value}</h3>
                     </div>
                 </Typography>
             </Popover>
