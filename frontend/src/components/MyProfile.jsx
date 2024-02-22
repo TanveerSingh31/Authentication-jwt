@@ -9,7 +9,8 @@ import getInitials from '../utils/getInitials.js';
 import Config from '../config.json';
 import axios from 'axios';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setValue, getTasksCreated } from '../Redux/Slices/addTask.js';
 
 
 
@@ -30,14 +31,27 @@ export default function MyProfile(props){
             tasksCreated: ""
     });
 
-    useEffect(()=>{
-        const getUserProfile = async () => {
+    let value = useSelector((state) => state.value.count);
+    const dispatch = useDispatch();
+
+
+    function handleClose(){
+        setAnchorEl(null);
+    }
+
+    async function handleClick(e){
+        setAnchorEl(e.currentTarget);
+
+        if(!userData.name){
             let result = await axios.get(`${Config.BASE_URL2}userProfile`, {
                 params: {
                     userId: tokenData.userId
                 }
             });
-            console.log("===>",result);
+
+            let result2 = await getTasksCreated();
+            dispatch(setValue(result2?.data));
+    
             let { firstName: fName, lastName: lName, email, createdAt } = result?.data;
             setUserData({
                 name: `${fName} ${lName}`, 
@@ -45,19 +59,6 @@ export default function MyProfile(props){
                 createdAt: createdAt
             });
         }
-        getUserProfile();
-    }, []);
-
-    let value = useSelector((state) => state.value.count);
-
-
-
-    function handleClose(){
-        setAnchorEl(null);
-    }
-
-    function handleClick(e){
-        setAnchorEl(e.currentTarget);
     }
 
     let open = Boolean(anchorEl);
