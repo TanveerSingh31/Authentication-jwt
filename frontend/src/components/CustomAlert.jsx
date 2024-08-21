@@ -9,6 +9,7 @@ export default function CustomAlert(props) {
 
     const [open, setOpen] = useState(props?.alertMessage ? true : false);
 
+    
     useEffect(() => {
         setOpen(props.alertMessage);
     }, [props?.alertMessage]);
