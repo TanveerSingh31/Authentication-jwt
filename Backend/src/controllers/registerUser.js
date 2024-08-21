@@ -4,8 +4,6 @@ import * as UserService from '../services/UserService.js';
 import responseHandler from '../../util/responseHandler.js';
 
 
-
-
 export const registerUser = async (req, res) => {
     try{
         let { fName, lName, email, password } = req.body;
